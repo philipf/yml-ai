@@ -1,17 +1,23 @@
-from flow import create_qa_flow
+import asyncio
+import logging
+from flow import create_hn_digest_flow
 
-# Example main function
-# Please replace this with your own main function
-def main():
+async def main():
+    """The main entry point for the HN Digest application."""
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
     shared = {
-        "question": "In one sentence, what's the end of universe?",
-        "answer": None
+        "config": {},
+        "top_story_ids": [],
+        "interesting_stories": [],
+        "html_output": ""
     }
 
-    qa_flow = create_qa_flow()
-    qa_flow.run(shared)
-    print("Question:", shared["question"])
-    print("Answer:", shared["answer"])
+    hn_digest_flow = create_hn_digest_flow()
+    await hn_digest_flow.run_async(shared)
+
+    logging.info("HN Digest generated successfully!")
+    logging.info("You can find the output in the 'output/index.html' file.")
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

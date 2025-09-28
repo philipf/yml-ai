@@ -1,26 +1,89 @@
-from pocketflow import Node
+import asyncio
+import logging
+from pocketflow import Node, AsyncParallelBatchNode
+from utils.config import load_config
+from utils.hackernews import get_top_story_ids, get_item, get_comments
+from utils.web import crawl
+from utils.static_site import generate
 from utils.call_llm import call_llm
 
-class GetQuestionNode(Node):
+class LoadConfigNode(Node):
     def exec(self, _):
-        # Get question directly from user input
-        user_question = input("Enter your question: ")
-        return user_question
-    
-    def post(self, shared, prep_res, exec_res):
-        # Store the user's question
-        shared["question"] = exec_res
-        return "default"  # Go to the next node
+        logging.info("Loading configuration...")
+        return load_config()
 
-class AnswerNode(Node):
+    def post(self, shared, _, exec_res):
+        shared["config"] = exec_res
+        logging.info("Configuration loaded.")
+
+class FetchTopStoriesNode(Node):
     def prep(self, shared):
-        # Read question from shared
-        return shared["question"]
-    
-    def exec(self, question):
-        # Call LLM to get the answer
-        return call_llm(question)
-    
-    def post(self, shared, prep_res, exec_res):
-        # Store the answer in shared
-        shared["answer"] = exec_res
+        return shared["config"]["top_stories_limit"]
+
+    def exec(self, limit):
+        logging.info(f"Fetching top {limit} stories...")
+        return get_top_story_ids(limit)
+
+    def post(self, shared, _, exec_res):
+        shared["top_story_ids"] = exec_res
+        logging.info(f"{len(exec_res)} top stories fetched.")
+
+class AnalyzeStoriesNode(AsyncParallelBatchNode):
+    async def prep_async(self, shared):
+        logging.info("Preparing to analyze stories...")
+        return [(story_id, shared['config']) for story_id in shared["top_story_ids"]]
+
+    async def exec_async(self, item):
+        story_id, config = item
+        logging.info(f"Analyzing story {story_id}...")
+        story = await asyncio.to_thread(get_item, story_id)
+        if not story or story.get('deleted') or story.get('dead') or not story.get('url'):
+            logging.warning(f"Skipping story {story_id} as it is deleted, dead, or has no URL.")
+            return None
+
+        comments = await asyncio.to_thread(get_comments, story, config["comments_limit"])
+        article_content = await asyncio.to_thread(crawl, story.get('url'))
+
+        context = f"""Title: {story.get('title')}
+Article Content: {article_content[:2000]}
+
+Comments:
+"""
+        for comment in comments:
+            context += f"- {comment.get('text', '')}\n"
+
+        prompt = f"""Analyze the following Hacker News story and determine if it is relevant to any of these topics: {config['areas_of_interest']}.
+
+{context}
+
+Provide a one-sentence summary of why it is relevant. If it is not relevant, respond with 'NO'.
+
+Your response should be either 'NO' or a short summary."""
+
+        summary = await asyncio.to_thread(call_llm, prompt)
+
+        if "NO" in summary.upper():
+            logging.info(f"Story {story_id} is not relevant.")
+            return None
+
+        logging.info(f"Story {story_id} is relevant.")
+        story['summary'] = summary
+        return story
+
+    async def post_async(self, shared, _, exec_res_list):
+        shared["interesting_stories"] = [story for story in exec_res_list if story]
+        logging.info(f"{len(shared['interesting_stories'])} interesting stories found.")
+
+class GenerateSiteNode(Node):
+    def prep(self, shared):
+        return shared["interesting_stories"]
+
+    def exec(self, stories):
+        logging.info("Generating static site...")
+        return generate(stories)
+
+    def post(self, shared, _, exec_res):
+        shared["html_output"] = exec_res
+        with open("output/index.html", "w") as f:
+            f.write(exec_res)
+        logging.info("Static site generated.")

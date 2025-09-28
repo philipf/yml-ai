@@ -1,0 +1,10 @@
+top_stories_limit: 30
+comments_limit: 5
+areas_of_interest:
+  - Security vulnerabilities, hacking
+  - Machine Learning
+  - Programming languages
+  - Electronics
+  - 3D printing
+  - Software design & architecture
+  - Better software development practices

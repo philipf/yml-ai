@@ -1,16 +1,13 @@
-from pocketflow import Flow
-from nodes import GetQuestionNode, AnswerNode
+from pocketflow import AsyncFlow
+from nodes import LoadConfigNode, FetchTopStoriesNode, AnalyzeStoriesNode, GenerateSiteNode
 
-def create_qa_flow():
-    """Create and return a question-answering flow."""
-    # Create nodes
-    get_question_node = GetQuestionNode()
-    answer_node = AnswerNode()
-    
-    # Connect nodes in sequence
-    get_question_node >> answer_node
-    
-    # Create flow starting with input node
-    return Flow(start=get_question_node)
+def create_hn_digest_flow():
+    """Creates and returns the HN Digest flow."""
+    load_config_node = LoadConfigNode()
+    fetch_stories_node = FetchTopStoriesNode()
+    analyze_stories_node = AnalyzeStoriesNode()
+    generate_site_node = GenerateSiteNode()
 
-qa_flow = create_qa_flow()
+    load_config_node >> fetch_stories_node >> analyze_stories_node >> generate_site_node
+
+    return AsyncFlow(start=load_config_node)
