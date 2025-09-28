@@ -11,7 +11,7 @@ def generate(stories: list):
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HN Digest</title>
     <style>
-        body {{ line-height: 1.6; margin: 0; padding: 20px; }}
+        body {{ font-family: Arial, Verdana, Tahoma, sans-serif; line-height: 1.6; margin: 0; padding: 20px; }}
         .container {{ max-width: 800px; margin: auto; padding: 20px; border-radius: 8px; }}
         h1 {{ text-align: center; }}
         p.date {{ text-align: center; }}
