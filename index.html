@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HN Digest</title>
     <style>
-        body { line-height: 1.6; margin: 0; padding: 20px; }
+        body { font-family: Arial, Verdana, Tahoma, sans-serif; line-height: 1.6; margin: 0; padding: 20px; }
         .container { max-width: 800px; margin: auto; padding: 20px; border-radius: 8px; }
         h1 { text-align: center; }
         p.date { text-align: center; }
@@ -58,46 +58,91 @@
     </div>
     <div class="container">
         <h1>HN Digest</h1>
-        <p class="date">2025-09-28 20:51:24</p>
+        <p class="date">2025-09-28 21:06:36</p>
         <div class="story">
-            <h2><a href="https://handy.computer/" target="_blank">Handy – Free open-source speech-to-text app written in Rust</a></h2>
-            <div class="meta">135 points | <a href="https://news.ycombinator.com/item?id=45399106" target="_blank">49 comments</a></div>
-            <div class="summary">Handy is a free open-source Rust app for local speech-to-text that pastes transcriptions into any text field (push-to-talk or toggle), emphasizing privacy by keeping audio on your machine and using models like Whisper/parakeet. Comments point to similar projects (whispy, hns), discuss local vs cloud inference and performance/GPU trade-offs, and invite contributions.</div>
+            <h2><a href="https://github.com/francoismichel/ssh3" target="_blank">SSH3: Faster and rich secure shell using HTTP/3</a></h2>
+            <div class="meta">413 points | <a href="https://news.ycombinator.com/item?id=45395991" target="_blank">218 comments</a></div>
+            <div class="summary">SSH3 runs the SSH Connection Protocol over HTTP/3 (using extended CONNECT) to reduce connection setup RTTs from 5–7 to 3 while keeping in-session keystroke latency unchanged. Implemented in Go and proposing features like connection migration, the project promises faster session setup but raises trust/compatibility concerns and shows limited recent activity.</div>
         </div>
         <div class="story">
-            <h2><a href="https://online-go.com/learn-to-play-go" target="_blank">Learn to play Go</a></h2>
-            <div class="meta">115 points | <a href="https://news.ycombinator.com/item?id=45400376" target="_blank">39 comments</a></div>
-            <div class="summary">The thread centers on learning to play Go — linking to online-go.com, personal anecdotes about teaching family and joining clubs and camps, praise for the game's handicap system and community, and recommendations for tutorials (Interactive Way to Go, Sensei's Library, learn-go.net) plus gameplay tips like studying joseki and direction of play. One commenter also mentions the AlphaGo documentary, giving a tangential Machine Learning connection.</div>
+            <h2><a href="https://www.theroom.lol" target="_blank">I made a public living room and the internet keeps putting weirder stuff in it</a></h2>
+            <div class="meta">214 points | <a href="https://news.ycombinator.com/item?id=45398005" target="_blank">86 comments</a></div>
+            <div class="summary">Public collaborative "living room" image-editing project lets internet users queue prompts to modify a shared base image, producing bizarre results and problems like queueing, rooms filling, and floodfills that can erase the original. Commenters propose fixes such as per-edit limits, perceptual minimum-original-image thresholds, intermediary LLM moderation, allowing personal API keys, and more concurrent rooms.</div>
+        </div>
+        <div class="story">
+            <h2><a href="https://docs.unsloth.ai/new/gpt-oss-reinforcement-learning" target="_blank">GPT-OSS Reinforcement Learning</a></h2>
+            <div class="meta">160 points | <a href="https://news.ycombinator.com/item?id=45392744" target="_blank">43 comments</a></div>
+            <div class="summary">GPT-OSS reinforcement learning and Unsloth documentation provide tools and tutorials (vLLM sleep mode, DPO/ORPO/KTO, LoRA, GGUF workflows, vision RL) for locally fine‑tuning open‑source LLMs. Comments praise increased accessibility but warn of catastrophic forgetting, limited benefits versus newer models, and recommend RAG/agentic retrieval as a safer alternative.</div>
         </div>
         <div class="story">
             <h2><a href="https://pyrefly.org/blog/why-typed-python/" target="_blank">Python developers are embracing type hints</a></h2>
-            <div class="meta">114 points | <a href="https://news.ycombinator.com/item?id=45358841" target="_blank">124 comments</a></div>
-            <div class="summary">The article argues that Python developers are increasingly adopting optional type hints and new tools (like Pyrefly) to gain static-typing benefits—better documentation, safer refactors, and more reliable production code—while retaining Python’s dynamic nature. Comments are mixed: many praise typing (drawing from TypeScript experience, improved IDE/AI tooling and maintainability), while others find typings verbose, clumsy, or detrimental for beginners, and recommend faster type-checkers like ty.</div>
+            <div class="meta">118 points | <a href="https://news.ycombinator.com/item?id=45358841" target="_blank">135 comments</a></div>
+            <div class="summary">Python developers are increasingly adopting optional type hints and tools (like Pyrefly) to improve code quality, documentation, refactoring safety, and IDE/type-checker experiences as projects scale.</div>
+        </div>
+        <div class="story">
+            <h2><a href="https://www.jeffgeerling.com/blog/2025/testing-raspberry-pi-500s-new-mechanical-keyboard" target="_blank">Testing the Raspberry Pi 500+'s new mechanical keyboard</a></h2>
+            <div class="meta">116 points | <a href="https://news.ycombinator.com/item?id=45371986" target="_blank">71 comments</a></div>
+            <div class="summary">Raspberry Pi 500+ features built-in 256GB M.2 NVMe, 16GB RAM and a low-profile RGB mechanical keyboard with Gateron KS-33 switches driven by an RP2040 running a Pi-fork of QMK (VIA-compatible), and Jeff Geerling tests its feel, keycaps, lighting, and configuration options.</div>
+        </div>
+        <div class="story">
+            <h2><a href="https://lilianweng.github.io/posts/2025-05-01-thinking/" target="_blank">Why We Think</a></h2>
+            <div class="meta">108 points | <a href="https://news.ycombinator.com/item?id=45395133" target="_blank">21 comments</a></div>
+            <div class="summary">Analyzes how giving models test-time compute and chain-of-thought enables “thinking,” covering latent-variable views, thinking tokens/recurrent architectures, parallel sampling vs. sequential revision, RL for reasoning, external tools, and scaling laws. HN comments debate attribution/replicability of the System 1/2 framework and offer praise and critique of the post.</div>
         </div>
         <div class="story">
             <h2><a href="https://xn--gckvb8fzb.com/thoughts-on-cloudflare/" target="_blank">Thoughts on Cloudflare</a></h2>
-            <div class="meta">100 points | <a href="https://news.ycombinator.com/item?id=45396234" target="_blank">30 comments</a></div>
-            <div class="summary">The piece criticizes Cloudflare’s centralization and argues it’s a net negative for the web, highlighting security and privacy risks (SSL-terminating MITM, breaches, state coercion), usability harms like captchas, and the systemic danger of a single large target. HN commenters counter that Cloudflare provides valuable DDoS, edge/worker and zero‑trust services that ease development and migration, debate alternatives (IPv6, Tailscale, Pangolin), and challenge some evidence and claims (e.g., updated botnet statistics).</div>
-        </div>
-        <div class="story">
-            <h2><a href="https://signoz.io/blog/llm-observability-opentelemetry/" target="_blank">LLM Observability in the Wild – Why OpenTelemetry Should Be the Standard</a></h2>
-            <div class="meta">98 points | <a href="https://news.ycombinator.com/item?id=45398467" target="_blank">30 comments</a></div>
-            <div class="summary">The article argues that OpenTelemetry should be the standard for LLM observability, using Chatwoot’s production issues (unexpected language switches, incorrect responses) to illustrate how multi-agent LLM systems get messy without unified telemetry. Comments expand on practical metrics to track (task complexity, tool errors, tokens/costs, spans), debate OTel vs. richer/hybrid schemas, and offer pragmatic alternatives like using conversation logs or OTel-backed SDKs and analytics stacks.</div>
+            <div class="meta">104 points | <a href="https://news.ycombinator.com/item?id=45396234" target="_blank">30 comments</a></div>
+            <div class="summary">Cloudflare is criticized for centralizing web infrastructure, acting as an SSL-terminating MITM that raises privacy and security risks, enabling abuse, and becoming an attractive single point of failure whose compromise or outages could have widespread impact. Comments debate tradeoffs—praising Cloudflare’s DDoS, edge and developer tooling while warning of lock‑in and suggesting alternatives like IPv6 home hosting, Tailscale/Pangolin and other CDN/tunnel solutions.</div>
         </div>
         <div class="story">
             <h2><a href="https://www.linspyre.com/ecoholics/temps.html" target="_blank">Do not do this unless you want magic black smoke</a></h2>
-            <div class="meta">68 points | <a href="https://news.ycombinator.com/item?id=45401051" target="_blank">36 comments</a></div>
-            <div class="summary">Relevant to: Electronics. The post warns that wiring solar panels in series right up against an inverter's maximum open‑circuit voltage (e.g., 4×37.1V ≈148.4V vs 150V limit) is unsafe because Voc rises in cold weather and can destroy the MPPT/input electronics of devices like the EcoFlow Delta Pro. Comments call out inadequate safety margins, lack of input overvoltage shutdowns or robust components, ask for teardowns, and urge clearer specs, regulation, and better customer support/installation guidance.</div>
+            <div class="meta">68 points | <a href="https://news.ycombinator.com/item?id=45401051" target="_blank">37 comments</a></div>
+            <div class="summary">EcoFlow Delta Pro units can be destroyed when series-connected solar panels' open-circuit voltage rises in cold weather above the 150V input limit, causing MPPT/controller failures and "magic black smoke." Commenters fault the product's lack of input overvoltage protection, unclear temperature derating in specs, and inadequate customer support.</div>
+        </div>
+        <div class="story">
+            <h2><a href="https://thereader.mitpress.mit.edu/the-hacker-folk-art-of-esoteric-coding/" target="_blank">The Hacker Folk Art of Esoteric Coding</a></h2>
+            <div class="meta">50 points | <a href="https://news.ycombinator.com/item?id=45371188" target="_blank">7 comments</a></div>
+            <div class="summary">Esolangs (esoteric programming languages) are framed as hacker folk art that subverts mainstream language design—using odd systems like Minesweeper-based computation and INTERCAL—to reveal hidden metaphors and reframe coding as a creative medium. Comments point to related resources (esolangs.org), a podcast episode, and examples of using types/syntax in playful, language-like ways.</div>
+        </div>
+        <div class="story">
+            <h2><a href="https://www.bbc.com/future/article/20250923-the-3000-year-old-story-hidden-in-your-keyboard" target="_blank">The 3,000-year-old story hidden in the @ sign</a></h2>
+            <div class="meta">44 points | <a href="https://news.ycombinator.com/item?id=45361568" target="_blank">16 comments</a></div>
+            <div class="summary">@ sign's cultural and typographic history is traced from ancient symbols to modern names worldwide and its place in everyday life and design, including MoMA's exhibit on everyday objects. Comments highlight technical network-addressing history—early systems used "AT" with spaces, "!" (UUCP) and "::" (DECnet), and @ became standard for email only after networks unified.</div>
+        </div>
+        <div class="story">
+            <h2><a href="https://www.zdnet.com/article/this-european-military-just-ditched-microsoft-for-open-source-libreoffice-heres-why/" target="_blank">Austria's military just ditched Microsoft for open-source LibreOffice</a></h2>
+            <div class="meta">41 points | <a href="https://news.ycombinator.com/item?id=45400422" target="_blank">6 comments</a></div>
+            <div class="summary">Austria's military replaced Microsoft Office with LibreOffice to save roughly €6 million annually and promote open-source adoption. Commenters praised the cost savings and urged funding The Document Foundation while warning about compatibility issues and limitations for complex Excel tasks.</div>
         </div>
         <div class="story">
             <h2><a href="https://www.rdrocket.com/blog/just-how-resilient-are-large-language-models" target="_blank">Just how resilient are large language models?</a></h2>
-            <div class="meta">35 points | <a href="https://news.ycombinator.com/item?id=45361476" target="_blank">13 comments</a></div>
-            <div class="summary">The article examines how large language models tolerate faults (like cosmic-ray–induced bit flips) thanks to massive redundancy across billions of parameters, arguing that neural nets' distributed representations make them surprisingly resilient to single-parameter damage. Comments add context about ablation studies and pruning experiments, criticize the prose and claims about generalization, and link to hands-on pruning work.</div>
+            <div class="meta">37 points | <a href="https://news.ycombinator.com/item?id=45361476" target="_blank">14 comments</a></div>
+            <div class="summary">Resilience of large language models to cosmic-ray-induced single-bit flips and extensive parameter pruning, attributed to redundancy across billions of parameters; commenters reference ablation/pruning experiments and critique the article's prose and use of LLM-generated text.</div>
+        </div>
+        <div class="story">
+            <h2><a href="https://blog.cloudflare.com/code-mode/" target="_blank">Code Mode: the better way to use MCP</a></h2>
+            <div class="meta">37 points | <a href="https://news.ycombinator.com/item?id=45399204" target="_blank">2 comments</a></div>
+            <div class="summary">Converting MCP tools into a TypeScript API lets LLM agents write code to call and compose tools, enabling them to handle more tools and complex workflows more efficiently. This approach reduces repeated tool-call overhead and leverages LLMs' familiarity with real-world TypeScript, improving multi-call chaining versus exposing tools directly.</div>
         </div>
         <div class="story">
             <h2><a href="http://www.ibmfiles.com/pages/intellipower185.htm" target="_blank">IBM Intellistation 185 AIX workstation (2016)</a></h2>
-            <div class="meta">22 points | <a href="https://news.ycombinator.com/item?id=45401907" target="_blank">3 comments</a></div>
-            <div class="summary">The post describes the IBM IntelliStation POWER 185, a relatively obscure AIX workstation released around 2006 that used PowerPC 970 CPUs (occasionally misbranded as POWER), supported hardware virtualization, and saw use in government and engineering shops. Commenters add that while AIX boxes feel rock‑solid, many sites are replacing them with cheaper Linux servers.</div>
+            <div class="meta">22 points | <a href="https://news.ycombinator.com/item?id=45401907" target="_blank">6 comments</a></div>
+            <div class="summary">IBM IntelliStation POWER 185 is a 2006 AIX workstation built around the PowerPC 970 (often mislabeled as POWER), offering hardware virtualization and a quieter, lower-power alternative to other System p5 machines. It saw use in government and engineering shops but is relatively obscure and often being replaced by cheaper Linux servers despite AIX’s stability.</div>
+        </div>
+        <div class="story">
+            <h2><a href="https://apps.apple.com/us/app/ridepods-race-with-head/id6752268828" target="_blank">I built and launched the first AirPods-Controlled Game</a></h2>
+            <div class="meta">16 points | <a href="https://news.ycombinator.com/item?id=45362365" target="_blank">5 comments</a></div>
+            <div class="summary">AirPods-controlled motorcycle racing game RidePods uses AirPods/earbuds motion sensors to steer via head tilts, built by reverse-engineering spatial-audio/motion data and approved on the App Store.</div>
+        </div>
+        <div class="story">
+            <h2><a href="https://axx83.substack.com/p/the-case-for-spaces-a-new-vision" target="_blank">A proposal to add GC-less, unmanaged memory spaces to C#</a></h2>
+            <div class="meta">7 points | <a href="https://news.ycombinator.com/item?id=45364045" target="_blank">2 comments</a></div>
+            <div class="summary">Proposal to add "Spaces" to C#, introducing GC-less unmanaged isolated memory regions to let C# span managed productivity and low-level, high-performance systems programming within a single language. Commenters called the idea naive or AI‑generated and argued finer-grained GC control would be preferable.</div>
+        </div>
+        <div class="story">
+            <h2><a href="https://chillphysicsenjoyer.substack.com/p/measuring-my-diy-air-purifier" target="_blank">Measuring My DIY Air Purifier</a></h2>
+            <div class="meta">7 points | <a href="https://news.ycombinator.com/item?id=45400114" target="_blank">0 comments</a></div>
+            <div class="summary">Measuring a DIY Corsi–Rosenthal air purifier’s clean air delivery rate by generating PM2.5 with a controlled frying-kale procedure and comparing decay rates to open-window ventilation and a Levoit 400s commercial purifier; PM2.5 levels stabilized around 450 µg/m³ in tests.</div>
         </div>
     </div>
     <script>
