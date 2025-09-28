@@ -56,7 +56,8 @@ Comments:
 
 {context}
 
-Provide a summary, now longer than two sentences, base it of the title, article content and comments. If it is not relevant to any the topics, respond with 'NO'.
+Provide a summary, no longer than two sentences, base it of the title, article content and comments. If it is not relevant to any the topics, respond with 'NO'.
+The summary must be highly concise and must not begin with an introductory phrase such as 'The post describes,' 'This thread explains,' or 'The article discusses.' Start the summary directly with the main subject.
 
 Your response should be either 'NO' or a short summary."""
 
