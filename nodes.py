@@ -96,6 +96,6 @@ class GenerateSiteNode(Node):
 
     def post(self, shared, _, exec_res):
         shared["html_output"] = exec_res
-        with open("output/index.html", "w") as f:
+        with open("index.html", "w") as f:
             f.write(exec_res)
         logging.info("Static site generated.")

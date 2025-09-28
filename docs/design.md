@@ -113,4 +113,4 @@ shared = {
     -   *Steps*:
         -   *prep*: Read `shared["interesting_stories"]`.
         -   *exec*: Call the `static_site.generate` utility.
-        -   *post*: Write the resulting HTML to `shared["html_output"]` and save it to `output/index.html`.
+        -   *post*: Write the resulting HTML to `shared["html_output"]` and save it to `index.html`.

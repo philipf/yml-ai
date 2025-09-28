@@ -17,7 +17,7 @@ async def main():
     await hn_digest_flow.run_async(shared)
 
     logging.info("HN Digest generated successfully!")
-    logging.info("You can find the output in the 'output/index.html' file.")
+    logging.info("You can find the output in the 'index.html' file.")
 
 if __name__ == "__main__":
     asyncio.run(main())
