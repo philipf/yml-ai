@@ -1,5 +1,6 @@
 top_stories_limit: 50
 comments_limit: 10
+api_concurrency: 5
 areas_of_interest:
   - Security vulnerabilities, hacking
   - Machine Learning

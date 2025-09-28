@@ -2,10 +2,10 @@ import asyncio
 import logging
 from pocketflow import Node, AsyncParallelBatchNode
 from utils.config import load_config
-from utils.hackernews import get_top_story_ids, get_item, get_comments
-from utils.web import crawl
+from utils.hackernews import get_top_story_ids, get_item_async, get_comments_async
+from utils.web import crawl_async
 from utils.static_site import generate
-from utils.call_llm import call_llm
+from utils.call_llm import call_llm_async
 
 class LoadConfigNode(Node):
     def exec(self, _):
@@ -14,6 +14,7 @@ class LoadConfigNode(Node):
 
     def post(self, shared, _, exec_res):
         shared["config"] = exec_res
+        shared["semaphore"] = asyncio.Semaphore(exec_res["api_concurrency"])
         logging.info("Configuration loaded.")
 
 class FetchTopStoriesNode(Node):
@@ -31,18 +32,24 @@ class FetchTopStoriesNode(Node):
 class AnalyzeStoriesNode(AsyncParallelBatchNode):
     async def prep_async(self, shared):
         logging.info("Preparing to analyze stories...")
-        return [(story_id, shared['config']) for story_id in shared["top_story_ids"]]
+        return [(story_id, shared['config'], shared['semaphore']) for story_id in shared["top_story_ids"]]
 
     async def exec_async(self, item):
-        story_id, config = item
+        story_id, config, semaphore = item
         logging.info(f"Analyzing story {story_id}...")
-        story = await asyncio.to_thread(get_item, story_id)
+        story = await get_item_async(story_id, semaphore=semaphore)
         if not story or story.get('deleted') or story.get('dead') or not story.get('url'):
             logging.warning(f"Skipping story {story_id} as it is deleted, dead, or has no URL.")
             return None
 
-        comments = await asyncio.to_thread(get_comments, story, config["comments_limit"])
-        article_content = await asyncio.to_thread(crawl, story.get('url'))
+        try:
+            # Run fetching comments and article content concurrently
+            comments_task = get_comments_async(story, config["comments_limit"], semaphore=semaphore)
+            article_content_task = crawl_async(story.get('url'), semaphore=semaphore)
+            comments, article_content = await asyncio.gather(comments_task, article_content_task)
+        except Exception as e:
+            logging.warning(f"Skipping story {story_id} due to error fetching content: {e}")
+            return None
 
         context = f"""Title: {story.get('title')}
 Article Content: {article_content[:2000]}
@@ -61,7 +68,7 @@ The summary must be highly concise and must not begin with an introductory phras
 
 Your response should be either 'NO' or a short summary."""
 
-        summary = await asyncio.to_thread(call_llm, prompt)
+        summary = await call_llm_async(prompt, semaphore=semaphore)
 
         if "NO" in summary.upper():
             logging.info(f"Story {story_id} is not relevant.")
