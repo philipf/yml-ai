@@ -21,6 +21,8 @@ def generate(stories: list):
         .story h2 a {{ text-decoration: none; }}
         .story h2 a:hover {{ text-decoration: underline; }}
         .story .meta {{ font-size: 0.9em; }}
+        .story .meta a {{ color: inherit; text-decoration: none; }}
+        .story .meta a:hover {{ text-decoration: underline; }}
         .story .summary {{ margin-top: 10px; }}
         
         .theme-switch-wrapper {{ position: fixed; top: 20px; right: 20px; display: flex; align-items: center; }}
@@ -39,7 +41,7 @@ def generate(stories: list):
         .dark-mode h1 {{ color: #ff6600; }}
         .dark-mode p.date {{ color: #828282; }}
         .dark-mode .story {{ border-bottom-color: #333; }}
-        .dark-mode .story h2 a {{ color: #ff6600; }}
+        .dark-mode .story h2 a {{ color: #80C0FF; }}
         .dark-mode .meta {{ color: #828282; }}
 
         /* Light Mode */
@@ -68,7 +70,7 @@ def generate(stories: list):
     for story in stories:
         html += f"""        <div class="story">
             <h2><a href="{story['url']}" target="_blank">{story['title']}</a></h2>
-            <div class="meta">{story['score']} points | {story.get('descendants', 0)} comments</div>
+            <div class="meta">{story['score']} points | <a href="https://news.ycombinator.com/item?id={story['id']}" target="_blank">{story.get('descendants', 0)} comments</a></div>
             <div class="summary">{story['summary']}</div>
         </div>
 """

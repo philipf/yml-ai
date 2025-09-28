@@ -22,12 +22,14 @@ A **MapReduce**-style pattern will be used.
 
 1.  **Fetch Top Story IDs**: Get a list of top story IDs from the Hacker News API.
 2.  **Analyze Stories (in parallel)**: For each story ID, fetch the story content, comments, and linked URL content. Use an LLM to determine if it matches the user's interests.
-3.  **Generate Static Site**: Create a static HTML file with the filtered, interesting stories.
+3.  **Sort Stories**: Sort the interesting stories by their points in descending order.
+4.  **Generate Static Site**: Create a static HTML file with the filtered, interesting stories.
 
 ```mermaid
 flowchart TD
     Fetch[Fetch Top Story IDs] --> Analyze{Analyze Stories in Parallel}
-    Analyze --> Generate[Generate Static Site]
+    Analyze --> Sort[Sort Stories]
+    Sort --> Generate[Generate Static Site]
 ```
 
 ## Utility Functions

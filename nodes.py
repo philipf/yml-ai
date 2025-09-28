@@ -74,6 +74,18 @@ Your response should be either 'NO' or a short summary."""
         shared["interesting_stories"] = [story for story in exec_res_list if story]
         logging.info(f"{len(shared['interesting_stories'])} interesting stories found.")
 
+class SortStoriesNode(Node):
+    def prep(self, shared):
+        return shared["interesting_stories"]
+
+    def exec(self, stories):
+        logging.info("Sorting stories by points...")
+        return sorted(stories, key=lambda x: x.get('score', 0), reverse=True)
+
+    def post(self, shared, _, exec_res):
+        shared["interesting_stories"] = exec_res
+        logging.info("Stories sorted.")
+
 class GenerateSiteNode(Node):
     def prep(self, shared):
         return shared["interesting_stories"]
