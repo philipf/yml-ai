@@ -1,4 +1,4 @@
-top_stories_limit: 30
+top_stories_limit: 50
 comments_limit: 10
 areas_of_interest:
   - Security vulnerabilities, hacking
@@ -8,3 +8,4 @@ areas_of_interest:
   - 3D printing
   - Software design & architecture
   - Better software development practices
+  - How to work faster and more efficiently
