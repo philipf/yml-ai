@@ -56,7 +56,7 @@ Comments:
 
 {context}
 
-Provide a one-sentence summary of why it is relevant. If it is not relevant, respond with 'NO'.
+Provide a summary, now longer than two sentences, base it of the title, article content and comments. If it is not relevant to any the topics, respond with 'NO'.
 
 Your response should be either 'NO' or a short summary."""
 

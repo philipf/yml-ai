@@ -1,5 +1,5 @@
-top_stories_limit: 30
-comments_limit: 5
+top_stories_limit: 3
+comments_limit: 2
 areas_of_interest:
   - Security vulnerabilities, hacking
   - Machine Learning
