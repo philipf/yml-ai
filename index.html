@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HN Digest</title>
+    <style>
+        body { line-height: 1.6; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; padding: 20px; border-radius: 8px; }
+        h1 { text-align: center; }
+        p.date { text-align: center; }
+        .story { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid; }
+        .story:last-child { border-bottom: none; }
+        .story h2 { margin: 0 0 10px 0; }
+        .story h2 a { text-decoration: none; }
+        .story h2 a:hover { text-decoration: underline; }
+        .story .meta { font-size: 0.9em; }
+        .story .meta a { color: inherit; text-decoration: none; }
+        .story .meta a:hover { text-decoration: underline; }
+        .story .summary { margin-top: 10px; }
+        
+        .theme-switch-wrapper { position: fixed; top: 20px; right: 20px; display: flex; align-items: center; }
+        .theme-switch { display: inline-block; height: 34px; position: relative; width: 60px; }
+        .theme-switch input { display:none; }
+        .slider { background-color: #ccc; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; }
+        .slider:before { background-color: #fff; bottom: 4px; content: ""; height: 26px; left: 4px; position: absolute; transition: .4s; width: 26px; }
+        input:checked + .slider { background-color: #2196F3; }
+        input:checked + .slider:before { transform: translateX(26px); }
+        .slider.round { border-radius: 34px; }
+        .slider.round:before { border-radius: 50%; }
+
+        /* Dark Mode (default) */
+        body.dark-mode { background-color: #121212; color: #e0e0e0; }
+        .dark-mode .container { background: #1e1e1e; box-shadow: 0 0 10px rgba(255,255,255,0.1); }
+        .dark-mode h1 { color: #ff6600; }
+        .dark-mode p.date { color: #828282; }
+        .dark-mode .story { border-bottom-color: #333; }
+        .dark-mode .story h2 a { color: #80C0FF; }
+        .dark-mode .meta { color: #828282; }
+
+        /* Light Mode */
+        body.light-mode { background-color: #f9f9f9; color: #333; }
+        .light-mode .container { background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .light-mode h1 { color: #ff6600; }
+        .light-mode p.date { color: #828282; }
+        .light-mode .story { border-bottom-color: #eee; }
+        .light-mode .story h2 a { color: #000; }
+        .light-mode .meta { color: #828282; }
+    </style>
+</head>
+<body>
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round"></div>
+        </label>
+        <span style="margin-left: 10px;">🌙</span>
+    </div>
+    <div class="container">
+        <h1>HN Digest</h1>
+        <p class="date">2025-09-28 20:51:24</p>
+        <div class="story">
+            <h2><a href="https://handy.computer/" target="_blank">Handy – Free open-source speech-to-text app written in Rust</a></h2>
+            <div class="meta">135 points | <a href="https://news.ycombinator.com/item?id=45399106" target="_blank">49 comments</a></div>
+            <div class="summary">Handy is a free open-source Rust app for local speech-to-text that pastes transcriptions into any text field (push-to-talk or toggle), emphasizing privacy by keeping audio on your machine and using models like Whisper/parakeet. Comments point to similar projects (whispy, hns), discuss local vs cloud inference and performance/GPU trade-offs, and invite contributions.</div>
+        </div>
+        <div class="story">
+            <h2><a href="https://online-go.com/learn-to-play-go" target="_blank">Learn to play Go</a></h2>
+            <div class="meta">115 points | <a href="https://news.ycombinator.com/item?id=45400376" target="_blank">39 comments</a></div>
+            <div class="summary">The thread centers on learning to play Go — linking to online-go.com, personal anecdotes about teaching family and joining clubs and camps, praise for the game's handicap system and community, and recommendations for tutorials (Interactive Way to Go, Sensei's Library, learn-go.net) plus gameplay tips like studying joseki and direction of play. One commenter also mentions the AlphaGo documentary, giving a tangential Machine Learning connection.</div>
+        </div>
+        <div class="story">
+            <h2><a href="https://pyrefly.org/blog/why-typed-python/" target="_blank">Python developers are embracing type hints</a></h2>
+            <div class="meta">114 points | <a href="https://news.ycombinator.com/item?id=45358841" target="_blank">124 comments</a></div>
+            <div class="summary">The article argues that Python developers are increasingly adopting optional type hints and new tools (like Pyrefly) to gain static-typing benefits—better documentation, safer refactors, and more reliable production code—while retaining Python’s dynamic nature. Comments are mixed: many praise typing (drawing from TypeScript experience, improved IDE/AI tooling and maintainability), while others find typings verbose, clumsy, or detrimental for beginners, and recommend faster type-checkers like ty.</div>
+        </div>
+        <div class="story">
+            <h2><a href="https://xn--gckvb8fzb.com/thoughts-on-cloudflare/" target="_blank">Thoughts on Cloudflare</a></h2>
+            <div class="meta">100 points | <a href="https://news.ycombinator.com/item?id=45396234" target="_blank">30 comments</a></div>
+            <div class="summary">The piece criticizes Cloudflare’s centralization and argues it’s a net negative for the web, highlighting security and privacy risks (SSL-terminating MITM, breaches, state coercion), usability harms like captchas, and the systemic danger of a single large target. HN commenters counter that Cloudflare provides valuable DDoS, edge/worker and zero‑trust services that ease development and migration, debate alternatives (IPv6, Tailscale, Pangolin), and challenge some evidence and claims (e.g., updated botnet statistics).</div>
+        </div>
+        <div class="story">
+            <h2><a href="https://signoz.io/blog/llm-observability-opentelemetry/" target="_blank">LLM Observability in the Wild – Why OpenTelemetry Should Be the Standard</a></h2>
+            <div class="meta">98 points | <a href="https://news.ycombinator.com/item?id=45398467" target="_blank">30 comments</a></div>
+            <div class="summary">The article argues that OpenTelemetry should be the standard for LLM observability, using Chatwoot’s production issues (unexpected language switches, incorrect responses) to illustrate how multi-agent LLM systems get messy without unified telemetry. Comments expand on practical metrics to track (task complexity, tool errors, tokens/costs, spans), debate OTel vs. richer/hybrid schemas, and offer pragmatic alternatives like using conversation logs or OTel-backed SDKs and analytics stacks.</div>
+        </div>
+        <div class="story">
+            <h2><a href="https://www.linspyre.com/ecoholics/temps.html" target="_blank">Do not do this unless you want magic black smoke</a></h2>
+            <div class="meta">68 points | <a href="https://news.ycombinator.com/item?id=45401051" target="_blank">36 comments</a></div>
+            <div class="summary">Relevant to: Electronics. The post warns that wiring solar panels in series right up against an inverter's maximum open‑circuit voltage (e.g., 4×37.1V ≈148.4V vs 150V limit) is unsafe because Voc rises in cold weather and can destroy the MPPT/input electronics of devices like the EcoFlow Delta Pro. Comments call out inadequate safety margins, lack of input overvoltage shutdowns or robust components, ask for teardowns, and urge clearer specs, regulation, and better customer support/installation guidance.</div>
+        </div>
+        <div class="story">
+            <h2><a href="https://www.rdrocket.com/blog/just-how-resilient-are-large-language-models" target="_blank">Just how resilient are large language models?</a></h2>
+            <div class="meta">35 points | <a href="https://news.ycombinator.com/item?id=45361476" target="_blank">13 comments</a></div>
+            <div class="summary">The article examines how large language models tolerate faults (like cosmic-ray–induced bit flips) thanks to massive redundancy across billions of parameters, arguing that neural nets' distributed representations make them surprisingly resilient to single-parameter damage. Comments add context about ablation studies and pruning experiments, criticize the prose and claims about generalization, and link to hands-on pruning work.</div>
+        </div>
+        <div class="story">
+            <h2><a href="http://www.ibmfiles.com/pages/intellipower185.htm" target="_blank">IBM Intellistation 185 AIX workstation (2016)</a></h2>
+            <div class="meta">22 points | <a href="https://news.ycombinator.com/item?id=45401907" target="_blank">3 comments</a></div>
+            <div class="summary">The post describes the IBM IntelliStation POWER 185, a relatively obscure AIX workstation released around 2006 that used PowerPC 970 CPUs (occasionally misbranded as POWER), supported hardware virtualization, and saw use in government and engineering shops. Commenters add that while AIX boxes feel rock‑solid, many sites are replacing them with cheaper Linux servers.</div>
+        </div>
+    </div>
+    <script>
+        const checkbox = document.getElementById('checkbox');
+        checkbox.addEventListener('change', () => {
+            const body = document.body;
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light-mode');
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            }
+        });
+
+        // Apply the saved theme on load
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.body.classList.add(savedTheme);
+            if (savedTheme === 'light-mode') {
+                checkbox.checked = true;
+            }
+        } else {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+</html>
