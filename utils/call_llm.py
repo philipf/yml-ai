@@ -1,44 +1,88 @@
-from openai import OpenAI, AsyncOpenAI
+from google.generativeai import GenerativeModel
+import google.generativeai as genai
 import os
 import subprocess
 import asyncio
+import time
+from collections import deque
+import threading
 
-def get_openai_api_key():
+try:
+    # Attempt a relative import for when this is used as a module
+    from .config import load_config
+except ImportError:
+    # Fallback to a direct import for when this is run as a script
+    from config import load_config
+
+_request_timestamps = deque()
+_lock = threading.Lock()
+
+def _rate_limit_wait():
+    config = load_config()
+    try:
+        rpm_limit = int(config.get('gemini_rpm_limit') or 0)
+    except (ValueError, TypeError):
+        rpm_limit = 0
+
+    if not rpm_limit:
+        return
+
+    with _lock:
+        now = time.monotonic()
+        # Remove timestamps older than 60 seconds
+        while _request_timestamps and now - _request_timestamps[0] >= 60:
+            _request_timestamps.popleft()
+
+        if len(_request_timestamps) >= rpm_limit:
+            wait_time = (_request_timestamps[0] + 60) - now
+            if wait_time > 0:
+                time.sleep(wait_time)
+        
+        _request_timestamps.append(time.monotonic())
+
+async def _rate_limit_wait_async():
+    # Run the synchronous rate-limiting logic in a separate thread
+    await asyncio.to_thread(_rate_limit_wait)
+
+def get_gemini_api_key():
     try:
         # Use pass to get the API key
-        return subprocess.check_output(['pass', 'show', 'openai/apikey']).strip().decode('utf-8')
+        return subprocess.check_output(['pass', 'show', 'gemini/apikey']).strip().decode('utf-8')
     except (subprocess.CalledProcessError, FileNotFoundError):
         # Fallback to environment variable if pass fails
-        return os.environ.get("OPENAI_API_KEY")
+        return os.environ.get("GEMINI_API_KEY")
 
-async def get_openai_api_key_async():
-    return await asyncio.to_thread(get_openai_api_key)
+async def get_gemini_api_key_async():
+    return await asyncio.to_thread(get_gemini_api_key)
 
-# Learn more about calling the LLM: https://the-pocket.github.io/PocketFlow/utility_function/llm.html
 def call_llm(prompt):
-    api_key = get_openai_api_key()
+    _rate_limit_wait()
+    api_key = get_gemini_api_key()
     if not api_key:
-        raise ValueError("OpenAI API key not found. Please set it using `pass` or the OPENAI_API_KEY environment variable.")
+        raise ValueError("Gemini API key not found. Please set it using `pass` or the GEMINI_API_KEY environment variable.")
 
-    client = OpenAI(api_key=api_key)
-    r = client.chat.completions.create(
-        model="gpt-5-mini-2025-08-07",
-        messages=[{"role": "user", "content": prompt}]
-    )
-    return r.choices[0].message.content
+    config = load_config()
+    model_name = config.get('gemini_model', 'gemini-fast')
+
+    genai.configure(api_key=api_key)
+    model = GenerativeModel(model_name)
+    r = model.generate_content(prompt)
+    return r.text
 
 async def call_llm_async(prompt, semaphore: asyncio.Semaphore = None):
     async def _call():
-        api_key = await get_openai_api_key_async()
+        await _rate_limit_wait_async()
+        api_key = await get_gemini_api_key_async()
         if not api_key:
-            raise ValueError("OpenAI API key not found. Please set it using `pass` or the OPENAI_API_KEY environment variable.")
+            raise ValueError("Gemini API key not found. Please set it using `pass` or the GEMINI_API_KEY environment variable.")
 
-        client = AsyncOpenAI(api_key=api_key)
-        r = await client.chat.completions.create(
-            model="gpt-5-mini-2025-08-07",
-            messages=[{"role": "user", "content": prompt}]
-        )
-        return r.choices[0].message.content
+        config = load_config()
+        model_name = config.get('gemini_model', 'gemini-fast')
+        
+        genai.configure(api_key=api_key)
+        model = GenerativeModel(model_name)
+        r = await model.generate_content_async(prompt)
+        return r.text
 
     if semaphore:
         async with semaphore:

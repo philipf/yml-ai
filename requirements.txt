@@ -2,4 +2,4 @@ pocketflow>=0.0.1
 requests
 PyYAML
 beautifulsoup4
-openai
+google-generativeai
