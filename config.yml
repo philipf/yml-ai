@@ -1,6 +1,8 @@
 top_stories_limit: 50
 comments_limit: 10
 api_concurrency: 5
+gemini_rpm_limit: 29
+gemini_model: gemini-2.5-flash-lite
 areas_of_interest:
   - Security vulnerabilities, hacking
   - Machine Learning
