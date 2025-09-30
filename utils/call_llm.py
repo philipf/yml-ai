@@ -1,19 +1,13 @@
 import logging
 from google.generativeai import GenerativeModel
 import google.generativeai as genai
-import os
-import subprocess
 import asyncio
 import time
 from collections import deque
 import threading
 
-try:
-    # Attempt a relative import for when this is used as a module
-    from .config import load_config
-except ImportError:
-    # Fallback to a direct import for when this is run as a script
-    from config import load_config
+from .config import load_config
+from .secrets import get_secret, get_secret_async
 
 _request_timestamps = deque()
 _lock = threading.Lock()
@@ -47,15 +41,10 @@ async def _rate_limit_wait_async():
     await asyncio.to_thread(_rate_limit_wait)
 
 def get_gemini_api_key():
-    try:
-        # Use pass to get the API key
-        return subprocess.check_output(['pass', 'show', 'gemini/apikey']).strip().decode('utf-8')
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        # Fallback to environment variable if pass fails
-        return os.environ.get("GEMINI_API_KEY")
+    return get_secret('GEMINI_API_KEY', 'gemini/apikey')
 
 async def get_gemini_api_key_async():
-    return await asyncio.to_thread(get_gemini_api_key)
+    return await get_secret_async('GEMINI_API_KEY', 'gemini/apikey')
 
 def call_llm(prompt):
     _rate_limit_wait()
