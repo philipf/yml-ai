@@ -8,6 +8,8 @@ on:
 jobs:
   run-script:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout code
@@ -18,3 +20,9 @@ jobs:
 
       - name: Run script
         run: ./run.sh
+
+      - name: Commit and push index.html
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Latest run $(TZ='Pacific/Auckland' date +'%Y-%m-%d %H:%M')"
+          file_pattern: index.html
