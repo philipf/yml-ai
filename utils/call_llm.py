@@ -1,3 +1,4 @@
+import logging
 from google.generativeai import GenerativeModel
 import google.generativeai as genai
 import os
@@ -36,6 +37,7 @@ def _rate_limit_wait():
         if len(_request_timestamps) >= rpm_limit:
             wait_time = (_request_timestamps[0] + 60) - now
             if wait_time > 0:
+                logging.info(f"Rate limit reached. Waiting {wait_time:.2f} seconds...")
                 time.sleep(wait_time)
         
         _request_timestamps.append(time.monotonic())
