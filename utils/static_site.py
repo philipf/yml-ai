@@ -1,8 +1,8 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 def generate(stories: list):
     """Generates a static HTML site from a list of stories."""
-    date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    date = datetime.now(timezone.utc).isoformat()
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -64,7 +64,7 @@ def generate(stories: list):
     </div>
     <div class="container">
         <h1>HN Digest</h1>
-        <p class="date">{date}</p>
+        <p id="generation-time" class="date">{date}</p>
 """
 
     for story in stories:
@@ -100,6 +100,13 @@ def generate(stories: list):
             }
         } else {
             document.body.classList.add('dark-mode');
+        }
+
+        // Convert date to local timezone
+        const dateElement = document.getElementById('generation-time');
+        if (dateElement) {
+            const utcDate = new Date(dateElement.textContent);
+            dateElement.textContent = `Last updated on ${utcDate.toLocaleString()}`;
         }
     </script>
 </body>

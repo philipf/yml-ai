@@ -23,8 +23,11 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
+      - name: Generate commit message
+        run: echo "COMMIT_MSG=Latest run $(TZ='Pacific/Auckland' date +'%Y-%m-%d %H:%M')" >> $GITHUB_ENV
+
       - name: Commit and push index.html
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Latest run $(TZ='Pacific/Auckland' date +'%Y-%m-%d %H:%M')"
+          commit_message: ${{ env.COMMIT_MSG }}
           file_pattern: index.html
